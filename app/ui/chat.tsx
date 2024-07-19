@@ -38,13 +38,13 @@ export default function Chat(){
         }
       };
 
-    useEffect(()=>{
-        window.scrollTo(0, document.body.scrollHeight);
-    },[messages])
+    // useEffect(()=>{
+    //     window.scrollTo(0, document.body.scrollHeight);
+    // },[messages])
 
-    useEffect(()=>{
-        window.scrollTo(0, document.body.scrollHeight);
-    },[error])
+    // useEffect(()=>{
+    //     window.scrollTo(0, document.body.scrollHeight);
+    // },[error])
 
     return(
         <div dir='rtl'>
