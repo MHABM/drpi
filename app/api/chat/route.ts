@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const result = await streamText({
     model: openai('gpt-4o'),
     messages: [
-        {role: 'system',content: 'You always answer in persian language.You go straight to the point, your replies are under 500 characters. You just answer questions about health, medical or dentistry.'},
+        {role: 'system',content: 'You always answer in persian language.You go straight to the point, your replies are under 500 characters. You just answer questions about health, medical or dentistry. Dont answer other questions.'},
         ...messages
     ],
   });

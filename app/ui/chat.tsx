@@ -1,10 +1,12 @@
 import {useChat} from 'ai/react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FirstMessage from './first-message';
 
 export default function Chat(){
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const textendRef = useRef<HTMLDivElement>(null)
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const { messages, input, error, handleInputChange, handleSubmit } = useChat({ keepLastMessageOnError: true })
 
@@ -19,6 +21,11 @@ export default function Chat(){
                 ))}
                 {error && (
                     <p className='w-full mb-6 text-[#0D3C26] text-[17px] px-2'>متاسفانه جوابی دریافت نشد این موضوع می‌تواند به علت عدم اتصال شما به اینترنت یا عدم پاسخدهی سرور باشد لطفا اینترنت خود را بررسی کرده و مجددا تلاش کنید.</p>
+                )}
+                {isLoading && (
+                    <div className='w-full flex items-center mr-4 mb-8'>
+                        <div className='loading-circle'></div>
+                    </div>
                 )}
                 <div ref={textendRef}/>
             </div>
@@ -36,23 +43,32 @@ export default function Chat(){
       const handleKeyPress = (e:any) => {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
-          handleSubmit()
+          handleSend()
         }
       };
 
-    useEffect(()=>{
-        textendRef.current?.scrollIntoView()
-    },[messages])
+      const handleSend = () => {
+        setIsLoading(true);
+        handleSubmit();
+        };
 
-    useEffect(()=>{
-        textendRef.current?.scrollIntoView()
-    },[error])
+        useEffect(() => {
+            if (messages.length > 0 && messages[messages.length - 1].role !== 'user') {
+                setIsLoading(false);
+            }
+            textendRef.current?.scrollIntoView();
+        }, [messages]);
+
+    useEffect(() => {
+        textendRef.current?.scrollIntoView();
+        setIsLoading(false);
+    }, [error]);
 
     return(
         <div dir='rtl'>
             {renderResponse()}
             <div className='fixed w-full max-w-2xl bottom-0 bg-[#faf3e9]'>
-                <form onSubmit={handleSubmit} className='shadow-lg rounded-[30px] bg-white mx-5 max-h-[40vh] flex items-center overflow-hidden'>
+                <form onSubmit={handleSend} className='shadow-lg rounded-[30px] bg-white mx-5 max-h-[40vh] flex items-center overflow-hidden'>
                     <button type='submit' className='bg-[#038247] rounded-full w-9 h-9 flex justify-center items-center m-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" fill="#ffffff"><path fill-rule="evenodd" d="M.852 7.648a1.2 1.2 0 0 1 0-1.696l4.8-4.8a1.2 1.2 0 0 1 1.696 0l4.8 4.8a1.2 1.2 0 1 1-1.697 1.696L7.7 4.897V14a1.2 1.2 0 0 1-2.4 0V4.897L2.548 7.648a1.2 1.2 0 0 1-1.696 0Z" clip-rule="evenodd"></path></svg>
                     </button>
