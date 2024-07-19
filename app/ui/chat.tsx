@@ -12,7 +12,7 @@ export default function Chat(){
             <div className='h-full py-24 overflow-hidden mx-5'>
                 <FirstMessage />
                 {messages.map((m)=>(
-                    <p key={m.id} className={`w-full mb-6 text-[#0D3C26] text-[17px] ${m.role === 'user' ? 'w-fit max-w-[83%] p-3 rounded-lg bg-[#f5eadc] ' : 'px-2'}`}>
+                    <p key={m.id} className={`mb-6 text-[#0D3C26] text-[17px] ${m.role === 'user' ? 'w-fit max-w-[83%] p-3 rounded-lg bg-[#f5eadc] ' : 'w-full px-2'}`}>
                         {m.content}
                     </p>
                 ))}
