@@ -1,6 +1,6 @@
 export default function Header(){
     return(
-        <header className="absolute w-full max-w-2xl bg-gradient-to-br from-[#faf3e9] to-[#faf3e9f1]">
+        <header className="fixed w-full max-w-2xl bg-gradient-to-br from-[#faf3e9] to-[#faf3e9f1]">
             <div className="flex justify-between h-12 mt-6 items-center mx-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#0d3c26" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M3 8a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1m0 8a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1" clip-rule="evenodd"></path></svg>
                 <a href='/'>
