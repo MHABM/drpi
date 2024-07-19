@@ -4,6 +4,7 @@ import FirstMessage from './first-message';
 
 export default function Chat(){
     const textareaRef = useRef<HTMLTextAreaElement>(null)
+    const textendRef = useRef<HTMLDivElement>(null)
 
     const { messages, input, error, handleInputChange, handleSubmit } = useChat({ keepLastMessageOnError: true })
 
@@ -19,6 +20,7 @@ export default function Chat(){
                 {error && (
                     <p className='w-full mb-6 text-[#0D3C26] text-[17px] px-2'>متاسفانه جوابی دریافت نشد این موضوع می‌تواند به علت عدم اتصال شما به اینترنت یا عدم پاسخدهی سرور باشد لطفا اینترنت خود را بررسی کرده و مجددا تلاش کنید.</p>
                 )}
+                <div ref={textendRef}/>
             </div>
         )
     }
@@ -38,13 +40,13 @@ export default function Chat(){
         }
       };
 
-    // useEffect(()=>{
-    //     window.scrollTo(0, document.body.scrollHeight);
-    // },[messages])
+    useEffect(()=>{
+        textendRef.current?.scrollIntoView()
+    },[messages])
 
-    // useEffect(()=>{
-    //     window.scrollTo(0, document.body.scrollHeight);
-    // },[error])
+    useEffect(()=>{
+        textendRef.current?.scrollIntoView()
+    },[error])
 
     return(
         <div dir='rtl'>
